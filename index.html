@@ -1,57 +1,47 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<link
-			rel="stylesheet"
-			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-			crossorigin="anonymous"
-		/>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
 		<style>
 			body {
 				margin-top: 70px;
-        background: #333;
+				background: #333;
 			}
 		</style>
 		<title>Weight Converter</title>
 	</head>
+
 	<body>
 		<div class="container">
 			<div class="row">
 				<div class="col">
-					<h1 class="display-5 text-center text-uppercase text-white">Weight Converter</h1>
+					<h1 class="display-5 text-center text-uppercase text-white">
+						Weight Converter
+					</h1>
 				</div>
-      </div>
-      
+			</div>
+
 			<form>
 				<div class="form-row">
 					<div class="col col-sm-8">
-						<input
-							type="number"
-							id="lbsInput"
-							class="form-control form-control-lg"
-							placeholder="Input value..."
-							autocomplete="off"
-						/>
+						<input type="number" id="lbsInput" class="form-control form-control-lg" placeholder="Input value..."
+							autocomplete="off" />
 					</div>
 					<div class="col col-4">
-						<select
-							name="selectOption"
-							id="selectOption"
-							class="form-control form-control-lg"
-						>
+						<select name="selectOption" id="selectOption" class="form-control form-control-lg">
 							<option selected value="default">From...</option>
 							<option value="kg">Kg</option>
 							<option value="pound">Pound</option>
 						</select>
 					</div>
 				</div>
-      </form>
-      
+			</form>
+
 			<div id="output">
 				<div class="card mt-2 pl-2 bg-info">
 					<div class="card-block">
@@ -80,8 +70,48 @@
 						<div id="gramsOutput"></div>
 					</div>
 				</div>
-      </div>
-      
+			</div>
 		</div>
+
+		<script>
+			document.getElementById('output').style.visibility = 'hidden';
+
+			function formula() {
+				const select = document.getElementById('selectOption');
+				const selectOption = select.options[select.selectedIndex].value;
+
+				if (selectOption === 'pound') {
+					reset();
+					document.getElementById('output').style.visibility = 'visible';
+					document.getElementById('lbsInput').addEventListener('input', function (e) {
+						let lbs = e.target.value;
+						document.getElementById('poundOutput').innerHTML = lbs * 1;
+						document.getElementById('kgOutput').innerHTML = (lbs / 2.2046).toFixed(2);
+						document.getElementById('ozOutput').innerHTML = (lbs * 16).toFixed(2);
+						document.getElementById('gramsOutput').innerHTML = (lbs / 0.0022046).toFixed(2);
+					});
+				} else if (selectOption === 'kg') {
+					reset();
+					document.getElementById('output').style.visibility = 'visible';
+					document.getElementById('lbsInput').addEventListener('input', function (e) {
+						let lbs = e.target.value;
+						document.getElementById('kgOutput').innerHTML = lbs * 1;
+						document.getElementById('poundOutput').innerHTML = (lbs * 2.2046).toFixed(2);
+						document.getElementById('ozOutput').innerHTML = (lbs * 35.274).toFixed(2);
+						document.getElementById('gramsOutput').innerHTML = (lbs * 1000).toFixed(2);
+					});
+				} else if (selectOption === 'default') {
+					document.getElementById('output').style.visibility = 'hidden';
+				};
+			}
+
+			function reset() {
+				document.getElementById('lbsInput').value = "";
+				document.getElementById('lbsInput').focus();
+			}
+
+			selectOption.addEventListener('change', formula);
+		</script>
 	</body>
+
 </html>
