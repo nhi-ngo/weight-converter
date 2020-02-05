@@ -1,5 +1,3 @@
-# weightconverter
-
 <a href="https://weight-converter-nngo.herokuapp.com" target="_blank">Weight Converter</a>
 
-A mini project weight converter built with HTML, javaScript and Bootstrap. 
+A mini weight converter project built with HTML, JavaScript and Bootstrap. 
